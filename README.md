@@ -1,5 +1,5 @@
 # max-characters-stylers
-paint the extra not allowed characters like twitter
+paint the extra not allowed characters like twitter, For now it works unless you press ENTER, contribution needed :)
 
 ## This is how Twitter do it
 
