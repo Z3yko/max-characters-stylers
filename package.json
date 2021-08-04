@@ -1,14 +1,20 @@
 {
-  "name": "charcounts",
-  "version": "1.0.0",
-  "description": "",
+  "name": "max-chars-styler",
+  "version": "0.0.1",
+  "description": "change the style of the extra text in a textarea(contentEditable)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Abdurhman Alsobhi <mcprof014@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "laravel-mix": "^6.0.27"
   }

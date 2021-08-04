@@ -1,0 +1,21 @@
+
+/* *[contenteditable="true"]{
+    display: inline-block;
+} */
+.not-allowed:empty{
+    padding-right:0.02px;
+}
+*{
+    font-size: larger;
+}
+#textContainer{
+    min-width: 280px;
+    min-height: 150px;
+    border: steelblue solid 2px;
+}
+.not-allowed{
+    background-color: tomato;
+}
+.warning-counter{
+    color: tomato;
+}

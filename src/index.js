@@ -1,15 +1,13 @@
+        import './index.css'
         let textContainer = document.querySelector('#textContainer'); // a contentEditable Div
         let counter = document.querySelector('#counter');
         let maxChars = 3
+
         function count(element, counter, maxChars){
-            
+            counter.innerHTML = `Max: ${maxChars}`
             window.onkeyup = ()=>{
-                countChars(textContainer, counter);
-                }
-            
-                function countChars(container){
-                    // let counter = counter; // for satisfaction 
-                    let count = container.children.length;
+                setTimeout(()=>{
+                    let count = Array.from(textContainer.children).filter(ele => ele.tagName == 'SPAN').length;
                     if (count > 0){
                         counter.innerHTML = `${count}/${maxChars}`;
                     }else{
@@ -20,19 +18,43 @@
                     }else{
                         counter.classList.remove('warning-counter')
                     }
+                    textSelected()
+                },0)
+            }
+
+            // checks if the user is selecting text
+            function textSelected(){
+                if (window.getSelection().toString()) {
+                    return true;
+                }else{
+                    return false;
                 }
-                countChars(textContainer, counter);
+            }
+            
+
             
             element.addEventListener('keypress',(event)=>{
                 let key = String.fromCharCode(event.which);
+                
+                // function ENTERpressed(){
+                //     if(event.which === 13){
+                //         return true;
+                //     }else{ return false;}
+                // }
+
+
                 // only chars
                 if (/[a-z0-9-!$%^&*()_+| ~=`{}\[\]:";'<>?,.\/]/i.test(key)) { 
-                    event.preventDefault(); // here the ugliness begin lol
+                    
+                    // console.log(key); 
+                    event.preventDefault(); // here the ugliness begins lol
                     let charEle = document.createElement('span'); // each character is a span
                     charEle.innerText = event.key
                     charEle.contentEditable = true;
+                    // ENTERpressed() ? charEle = document.createElement('br') : charEle;
+                    console.log(charEle);
                     setTimeout(()=>{
-                        // if the caret is and the end of the contentEditable, just append the character no hacking needed
+                            // if the caret is and the end of the contentEditable, just append the character no hacking needed
                         if(window.getSelection().anchorNode === textContainer.lastChild){ 
                             textContainer.appendChild(charEle);
                         }else{
@@ -52,21 +74,24 @@
                             }else{
                                 // this check is because when you type after moving the caret with the arrow,
                                 //  the selection offset points to the actual character [object Text],
-                                // but when you type the next one, the caret position is type of Node
+                                // but when you dont, the caret position is type of Node
                                 
-                                if(caretPosition.nodeType === 3){
+                                if(caretPosition.nodeType === 3){ 
                                     // here we reference the parent of the Text object which is the span element
                                     textContainer.insertBefore(charEle, caretPosition.parentElement.nextSibling)
                                 }else{
-                                    textContainer.insertBefore(charEle, caretPosition.nextSibling)
+                                    textContainer.insertBefore(charEle, caretPosition.nextSibling)        
                                 }
                             }
                         
                         }
+                        
                         // move the caret to be right after the typed character
                         setEndOfContenteditable(charEle)
                         
                     }, 0)
+                    
+                }else if(key == 'ENTER'){
                     
                 }
             })
